@@ -1,0 +1,24 @@
+{
+  "name": "ai_telegram_bot",
+  "version": "1.0.0",
+  "description": "an AI telegram bot based on Telegraf.js",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec node --loader ts-node/esm main.ts",
+    "format": "prettier --write ."
+  },
+  "author": "gsaintskad",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "dotenv": "^16.5.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "telegraf": "^4.16.3"
+  }
+}
