@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      // ... other options
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      // ... other options like target, module, outDir, etc.
+    },
+    // ... include, exclude, etc.
+  }
