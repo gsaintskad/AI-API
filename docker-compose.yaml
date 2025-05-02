@@ -26,7 +26,7 @@ services:
   # --- NestJS Wrapper API Service ---
   nestjs-api:
     build:
-      context: . # Assumes docker-compose.yml is in the root of your NestJS project
+      context: ./api # Assumes docker-compose.yml is in the root of your NestJS project
       dockerfile: Dockerfile # Specifies the Dockerfile to use (the one created above)
     container_name: nestjs_ollama_wrapper
     ports:
@@ -37,6 +37,7 @@ services:
       # Define the URL for the Ollama service *within* the Docker network
       # Docker Compose automatically makes services available via their service name ('ollama')
       - OLLAMA_API_URL=http://ollama:11434
+      - OLLAMA_MODEL=llama3.1 # Specify the model to use (if not preloaded)
       - PORT=3000 # Ensure NestJS listens on the correct internal port
       # - NODE_ENV=PROD # Set environment to production
       - NODE_ENV=DEV # Set environment to production

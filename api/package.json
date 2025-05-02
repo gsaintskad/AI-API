@@ -4,7 +4,18 @@
   "description": "an ai api to build multi micro service infrastructure ",
   "main": "main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +28,8 @@
     "class-validator": "^0.14.2"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3"
+    "@nestjs/cli": "^11.0.7",
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
   }
 }

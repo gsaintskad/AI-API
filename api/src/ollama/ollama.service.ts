@@ -49,12 +49,13 @@ export class OllamaService {
   // --- Chat Endpoint ---
   async chat(chatDto: ChatRequestDto): Promise<any> {
     const url = `${this.ollamaApiUrl}/api/chat`;
-     this.logger.log(`Forwarding chat request to ${url} for model ${chatDto.model}`);
+     this.logger.log(`Forwarding chat request to ${url} for model ${chatDto.model||process.env.OLLAMA_MODEL}`);
 
     try {
       const response = await firstValueFrom(
         this.httpService.post(url, {
             ...chatDto,
+            model:chatDto.model||process.env.OLLAMA_MODEL , // Use environment variable if available
             stream: false // Force non-streaming for simple wrapper
         }),
       );

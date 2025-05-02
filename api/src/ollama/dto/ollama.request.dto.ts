@@ -9,7 +9,7 @@ import { Type } from 'class-transformer';
 export class GenerateRequestDto {
   @IsString()
   @IsNotEmpty()
-  model: string;
+  model?: string;
 
   @IsString()
   @IsNotEmpty()
