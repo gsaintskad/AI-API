@@ -1,0 +1,48 @@
+version: '3.8' # Specify docker-compose version
+
+services:
+  # --- Ollama Service ---
+  ollama:
+    # Use the custom image you built with llama3.1 preloaded
+    image: ollama-llama3 # Replace with the name you used in 'docker build -t <name> .'
+    # OR, use the standard ollama image if you prefer pulling models at runtime
+    # image: ollama/ollama:latest
+    container_name: ollama_service # Optional: give the container a specific name
+    # Use a named volume to persist downloaded models (if not preloading)
+    # volumes:
+    #   - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434" # Expose Ollama port to host (optional if only accessed by nestjs)
+    # Optional: Add GPU support if available and configured on your host
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1 # Or 'all'
+    #           capabilities: [gpu]
+    restart: unless-stopped
+
+  # --- NestJS Wrapper API Service ---
+  nestjs-api:
+    build:
+      context: . # Assumes docker-compose.yml is in the root of your NestJS project
+      dockerfile: Dockerfile # Specifies the Dockerfile to use (the one created above)
+    container_name: nestjs_ollama_wrapper
+    ports:
+      - "3000:3000" # Map container port 3000 to host port 3000
+    depends_on:
+      - ollama # Ensure Ollama starts before the NestJS API
+    environment:
+      # Define the URL for the Ollama service *within* the Docker network
+      # Docker Compose automatically makes services available via their service name ('ollama')
+      - OLLAMA_API_URL=http://ollama:11434
+      - PORT=3000 # Ensure NestJS listens on the correct internal port
+      # - NODE_ENV=PROD # Set environment to production
+      - NODE_ENV=DEV # Set environment to production
+    restart: unless-stopped
+
+# Optional: Define the named volume if using the standard ollama image
+# volumes:
+#   ollama_data:
+

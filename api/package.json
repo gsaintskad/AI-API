@@ -1,0 +1,18 @@
+{
+  "name": "ai-api",
+  "version": "1.0.0",
+  "description": "an ai api to build multi micro service infrastructure ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/axios": "^4.0.0",
+    "@nestjs/config": "^4.0.2",
+    "axios": "^1.9.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
+  }
+}
