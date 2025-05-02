@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec node --loader ts-node/esm main.ts",
+    "build": "npx tsc",
+    "prod": "node main.js",
     "format": "prettier --write ."
   },
   "author": "gsaintskad",
@@ -19,6 +21,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "axios": "^1.9.0",
     "telegraf": "^4.16.3"
   }
 }
