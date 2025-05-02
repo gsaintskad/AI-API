@@ -5,8 +5,8 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-
-CMD [ "npm", "start:dev" ]
+RUN npm run build
+CMD [ "node", "main.js" ]
 
 # --- Production Stage ---
 # FROM node:23-alpine AS production
