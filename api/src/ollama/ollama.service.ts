@@ -29,18 +29,21 @@ export class OllamaService {
   // --- Generate Endpoint ---
   async generate(generateDto: GenerateRequestDto): Promise<any> {
     const url = `${this.ollamaApiUrl}/api/generate`;
-    this.logger.log(`Forwarding generate request to ${url} for model ${generateDto.model}`);
-
+    this.logger.log(`Forwarding generate request to ${url} for model ${generateDto.model||process.env.OLLAMA_MODEL}`);
+    console.log({env:process.env.OLLAMA_MODEL,model:generateDto.model})
     try {
       // Use firstValueFrom to convert Observable to Promise
-      const response = await firstValueFrom(
+      const ollamaResponse = await firstValueFrom(
         this.httpService.post(url, {
             ...generateDto,
+
+            model:generateDto.model||process.env.OLLAMA_MODEL , // Use environment variable if available
             stream: false // Force non-streaming for simple wrapper
         }),
       );
+      const {response} = ollamaResponse.data;
       this.logger.log(`Received successful response from Ollama generate endpoint.`);
-      return response.data; // Return the data part of the Axios response
+      return response; // Return the data part of the Axios response
     } catch (error) {
         this.handleError(error, 'generate');
     }

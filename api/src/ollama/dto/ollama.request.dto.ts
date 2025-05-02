@@ -7,8 +7,6 @@ import { Type } from 'class-transformer';
 
 // --- DTO for /api/generate ---
 export class GenerateRequestDto {
-  @IsString()
-  @IsNotEmpty()
   model?: string;
 
   @IsString()
@@ -51,9 +49,7 @@ class MessageDto {
 }
 
 export class ChatRequestDto {
-  @IsString()
-  @IsNotEmpty()
-  model: string;
+  model?: string;
 
   @IsArray()
   @ValidateNested({ each: true }) // Validate each object in the array
