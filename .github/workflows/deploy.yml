@@ -1,0 +1,39 @@
+name: Build and Deploy Locally (2 Stages)
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build:
+    name: Build Docker Images Locally
+    runs-on: self-hosted 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build images with Docker Compose
+        run: sudo docker compose build
+
+  deploy:
+    name: Deploy Containers Locally
+    runs-on: self-hosted
+
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Prepare .env file
+        run: |
+          cp .env.copy .env 
+          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Start containers with Docker Compose
+        run: sudo docker compose up -d
+
+      - name: Optional - Prune old images
+        run: sudo docker image prune -af
