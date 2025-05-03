@@ -1,7 +1,7 @@
 import { Telegraf, Context } from "telegraf";
 import axios from "axios";
 
-// --- Environment Variable Validation ---
+// --- Environment Variable Validation ---//
 const botToken = process.env.BOT_TOKEN;
 const aiApiUrl = process.env.AI_API_URL;
 
