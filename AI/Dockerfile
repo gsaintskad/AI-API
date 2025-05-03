@@ -3,7 +3,7 @@ FROM ollama/ollama:latest
 
 # --- Build-time Model Preloading ---
 
-# Copy the Modelfile into the image
+# Copy the Modelfile into the imagea
 COPY Modelfile /Modelfile
 
 # Run the 'ollama create' command during the build process.
