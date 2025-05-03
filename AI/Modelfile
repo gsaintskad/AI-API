@@ -1,4 +1,4 @@
-FROM deepseek-llm:7b-instruct
+FROM llama3.1
 # This tells Ollama to base the new model definition on llama3.1
 # You could add custom PARAMETER or SYSTEM instructions here if desired,
 # but for simply pre-loading the model, this is enough.
