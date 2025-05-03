@@ -46,6 +46,7 @@ services:
       context: ./telegram # Assumes docker-compose.yml is in the root of your Telegram bot project
       dockerfile: Dockerfile # Specifies the Dockerfile to use for the Telegram bot
     container_name: tg-bot
+
     ports:
       - "8080:8080" # Map container port 8080 to host port 8080
     environment:
