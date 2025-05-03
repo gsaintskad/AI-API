@@ -1,11 +1,9 @@
-
 // ==================================================
 // ollama.controller.ts
 // ==================================================
 import { Controller, Post, Body, HttpCode, ValidationPipe } from '@nestjs/common';
 import { OllamaService } from './ollama.service';
 import { GenerateRequestDto, ChatRequestDto } from './dto/ollama.request.dto'; // Assuming DTOs are in dto folder
-
 @Controller('api/ollama') // Base path for the controller
 export class OllamaController {
   constructor(private readonly ollamaService: OllamaService) {}

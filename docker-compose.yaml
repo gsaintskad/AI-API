@@ -1,60 +1,38 @@
-version: '3.8' # Specify docker-compose version
+version: '3.8' 
 
 services:
-  # --- Ollama Service ---
   ollama:
     build:
-      context: ./AI # Assumes docker-compose.yml is in the root of your Ollama project
-      dockerfile: Dockerfile # Specifies the Dockerfile to use (the one created above)
-    container_name: ollama_service # Optional: give the container a specific name
-    # Use a named volume to persist downloaded models (if not preloading)
-    # volumes:
-    #   - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434" # Expose Ollama port to host (optional if only accessed by nestjs)
-    # Optional: Add GPU support if available and configured on your host
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1 # Or 'all'
-    #           capabilities: [gpu]
-    restart: unless-stopped
+      context: ./AI 
+      dockerfile: Dockerfile 
+    container_name: ollama_service 
 
-  # --- NestJS Wrapper API Service ---
+    ports:
+      - "11434:11434" 
+    restart: unless-stopped
   nestjs-api:
     build:
-      context: ./api # Assumes docker-compose.yml is in the root of your NestJS project
-      dockerfile: Dockerfile # Specifies the Dockerfile to use (the one created above)
-    container_name: ollama_api # Optional: give the container a specific name
+      context: ./api 
+      dockerfile: Dockerfile 
+    container_name: ollama_api
     ports:
-      - "3000:3000" # Map container port 3000 to host port 3000
+      - "3000:3000" 
     depends_on:
-      - ollama # Ensure Ollama starts before the NestJS API
+      - ollama
     environment:
-      # Define the URL for the Ollama service *within* the Docker network
-      # Docker Compose automatically makes services available via their service name ('ollama')
       - OLLAMA_API_URL
-      - OLLAMA_MODEL # Specify the model to use (if not preloaded)
-      - PORT=${WRAPPER_PORT} # Ensure NestJS listens on the correct internal port
-      # - NODE_ENV=PROD # Set environment to production
-      - NODE_ENV=DEV # Set environment to production
+      - OLLAMA_MODEL
+      - PORT=${WRAPPER_PORT}
+      - NODE_ENV=DEV 
     restart: unless-stopped
   tg-bot:
     build:
-      context: ./telegram # Assumes docker-compose.yml is in the root of your Telegram bot project
-      dockerfile: Dockerfile # Specifies the Dockerfile to use for the Telegram bot
+      context: ./telegram 
+      dockerfile: Dockerfile 
     container_name: tg-bot
 
     ports:
-      - "8080:8080" # Map container port 8080 to host port 8080
+      - "8080:8080"
     environment:
       - BOT_TOKEN
       - AI_API_URL
-
-
-# Optional: Define the named volume if using the standard ollama image
-# volumes:
-#   ollama_data:
-
