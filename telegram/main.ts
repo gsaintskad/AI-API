@@ -61,7 +61,6 @@ bot.on("text", async (ctx: Context) => {
 
   // 1. Acknowledge receipt (optional but good practice)
   try {
-    await ctx.reply("🧠 Processing your request, please wait...");
     await ctx.sendChatAction("typing");
   } catch (replyError) {
     console.error(`Error sending acknowledgment to ${userName}:`, replyError);
