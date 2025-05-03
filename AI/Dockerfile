@@ -12,7 +12,7 @@ COPY Modelfile /Modelfile
 RUN \
     ollama serve & \
     sleep 5 && \
-    ollama create llama3.1-preloaded -f /Modelfile && \
+    ollama create currmodel-preloaded -f /Modelfile && \
     pkill ollama
 
 # --- Runtime Configuration ---
