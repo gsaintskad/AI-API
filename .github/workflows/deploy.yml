@@ -3,7 +3,7 @@ name: Build and Deploy Locally (2 Stages)
 on:
   push:
     branches:
-      - main 
+      - master 
 
 jobs:
   build:
