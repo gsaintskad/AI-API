@@ -1,38 +1,48 @@
 version: '3.8' 
 
 services:
-  ollama:
-    build:
-      context: ./AI 
-      dockerfile: Dockerfile 
-    container_name: ollama_service 
 
-    ports:
-      - "11434:11434" 
-    restart: unless-stopped
-  nestjs-api:
-    build:
-      context: ./api 
-      dockerfile: Dockerfile 
-    container_name: ollama_api
-    ports:
-      - "3000:3000" 
-    depends_on:
-      - ollama
-    environment:
-      - OLLAMA_API_URL
-      - OLLAMA_MODEL
-      - PORT=${WRAPPER_PORT}
-      - NODE_ENV=DEV 
-    restart: unless-stopped
-  tg-bot:
-    build:
-      context: ./telegram 
-      dockerfile: Dockerfile 
-    container_name: tg-bot
+  # ollama:
+  #   build:
+  #     context: ./AI 
+  #     dockerfile: Dockerfile 
+  #   container_name: ollama_service 
 
+  #   ports:
+  #     - "11434:11434" 
+  #   restart: unless-stopped
+  # nestjs-api:
+  #   build:
+  #     context: ./api 
+  #     dockerfile: Dockerfile 
+  #   container_name: ollama_api
+  #   ports:
+  #     - "3000:3000" 
+  #   depends_on:
+  #     - ollama
+  #   environment:
+  #     - OLLAMA_API_URL
+  #     - OLLAMA_MODEL
+  #     - PORT=${WRAPPER_PORT}
+  #     - NODE_ENV=DEV 
+  #   restart: unless-stopped
+  # tg-bot:
+  #   build:
+  #     context: ./telegram 
+  #     dockerfile: Dockerfile 
+  #   container_name: tg-bot
+
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - BOT_TOKEN
+  #     - AI_API_URL
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
     ports:
-      - "8080:8080"
-    environment:
-      - BOT_TOKEN
-      - AI_API_URL
+      - "8080:80"
+      # - "443:443"
+    
