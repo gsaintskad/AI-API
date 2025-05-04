@@ -1,68 +1,149 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
+  /* Ensure body takes full height and centers content */
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #e5ddd5; /* Light background for chat */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #333; /* Default text color */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  /* Adjust root to take full width and height for the chat layout */
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  min-height: 100vh; /* Ensure it takes at least full viewport height */
 }
 
-button {
+.App {
+  /* App container to hold the chat */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  width: 100%;
+  max-width: 600px; /* Max width for the chat window */
+  height: 90vh; /* Set a height for the chat window */
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  overflow: hidden; /* Hide overflowing messages */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  background-color: #fff; /* White background for the chat area */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  /* Added borders and padding for visual separation */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.chat-header {
+  background-color: #075e54; /* Telegram header color */
+  color: white;
+  padding: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  /* Added border-bottom for separation */
+  border-bottom: 1px solid #054c43;
+}
+
+.messages-list {
+  flex-grow: 1; /* Allow messages list to take up available space */
+  padding: 10px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-direction: column; /* Stack messages vertically */
+  /* Added background and padding for separation */
+  background-color: #e5ddd5; /* Match body background for message area */
+  padding: 10px;
+}
+
+.message {
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border-radius: 15px; /* Rounded corners for messages */
+  max-width: 80%; /* Limit message width */
+  word-wrap: break-word; /* Break long words */
+  position: relative; /* For timestamp positioning */
+}
+
+.user-message {
+  align-self: flex-end; /* Align user messages to the right */
+  background-color: #dcf8c6; /* Light green for user messages */
+  margin-left: auto; /* Push to the right */
+}
+
+.bot-message {
+  align-self: flex-start; /* Align bot messages to the left */
+  background-color: #ffffff; /* White for bot messages */
+  border: 1px solid #e0e0e0; /* Subtle border for bot messages */
+  margin-right: auto; /* Push to the left */
+}
+
+.message-text {
+  padding-bottom: 5px; /* Space for timestamp */
+}
+
+.message-timestamp {
+  font-size: 0.7em;
+  color: #888;
+  text-align: right;
+  margin-top: 3px;
+}
+
+.chat-input-container {
+  display: flex;
+  padding: 10px;
+  background-color: #f0f0f0; /* Light gray background for input area */
+  border-top: 1px solid #ccc; /* Separator line */
+}
+
+.chat-input {
+  flex-grow: 1; /* Allow input to take up available space */
+  border: none;
+  padding: 10px;
+  border-radius: 20px; /* Rounded input field */
+  margin-right: 10px;
+  outline: none; /* Remove outline on focus */
+}
+
+.send-button {
+  background-color: #075e54; /* Telegram green button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px; /* Rounded button */
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #054c43; /* Darker green on hover */
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 600px) {
+  .App {
+    height: 100vh; /* Full height on small screens */
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  .message {
+    max-width: 90%; /* Slightly wider messages on small screens */
   }
 }
