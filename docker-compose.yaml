@@ -33,7 +33,7 @@ services:
     container_name: tg-bot
 
     ports:
-      - "8080:8080"
+      - "3030:3000"
     environment:
       - BOT_TOKEN
       - AI_API_URL
@@ -43,17 +43,8 @@ services:
       context: .
       dockerfile: ./nginx/Dockerfile
     ports:
-      - "8080:80"
+      - "80:80"
       # - "443:443"
     depends_on:
       - nestjs-api
-    
-  # website:
-  #   build:
-  #     context: .
-  #     dockerfile: ./website/Dockerfile
-  #   ports:
-  #     - "5173:5173"
-  #   depends_on:
-  #     - nestjs-api
-    
+ 
