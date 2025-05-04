@@ -22,7 +22,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - name: build actual website
+        run: |
+          cd website
+          npm install
+          npm run build
+          cd ..
       - name: Build images with Docker Compose
         run: sudo docker compose build
 
