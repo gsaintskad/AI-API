@@ -6,6 +6,15 @@ on:
       - master 
 
 jobs:
+  cleanup:
+    name: Cleanup Old Images
+    runs-on: self-hosted
+
+    steps:
+      - name: down old containers
+        run: |
+          sudo docker compose down
+          sudo docker system prune -a
   build:
     name: Build Docker Images Locally
     runs-on: self-hosted 
