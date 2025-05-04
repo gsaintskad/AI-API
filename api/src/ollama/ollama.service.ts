@@ -37,7 +37,7 @@ export class OllamaService {
         this.httpService.post(url, {
             ...generateDto,
 
-            model:generateDto.model||process.env.OLLAMA_MODEL , // Use environment variable if available
+            model:generateDto.model||process.env.OLLAMA_MODEL ||'llama3.2', // Use environment variable if available
             stream: false // Force non-streaming for simple wrapper
         }),
       );
